@@ -8,14 +8,15 @@ W, H = Config.dimens
 
 __color__bg, __color__text, __font, __client = ("", "", "", "")
 __prefix, __postfix = Config.text_fixs
+__font_size = 0
 def hash_parameters():
-	global __color__bg, __color__text, __font, __prefix, __postfix
-	return (color_to_hex(__color__bg)+color_to_hex(__color__text)+__font.replace("/", "_")+str(hash(__prefix+__postfix)));
+	global __color__bg, __color__text, __font, __prefix, __postfix, __font_size
+	return (color_to_hex(__color__bg)+color_to_hex(__color__text)+str(__font_size)+__font.replace("/", "_")+str(hash(__prefix+__postfix)));
 def generate_image(mtime):
-	global __color__bg, __color__text, __font, W, H, __prefix, __postfix
+	global __color__bg, __color__text, __font, W, H, __prefix, __postfix, __font_size
 	img = Image.new('RGB', (W,H), color = __color__bg)
 	img_draw = ImageDraw.Draw(img)
-	fnt = ImageFont.truetype("font/"+__font+".ttf", 128);
+	fnt = ImageFont.truetype("font/"+__font+".ttf", __font_size);
 	draw_text = __prefix + mtime + __postfix
 	tw, th = img_draw.textsize(draw_text, font = fnt)
 	img_draw.text(((W-tw)/2, (H-th)/2), draw_text, font=fnt, fill=__color__text);
@@ -70,18 +71,26 @@ def change_bg(arg):
 		print("Error. Color must be entered with hex-format (#RRGGBB)\n -D//color: #"+color)
 		sys.exit()
 	__color__bg = tuple(int(color[i:i+2], 16) for i in (0, 2, 4))
+def change_font_size(arg):
+	global __font_size
+	val = int(arg)
+	if val < 0:
+		print("Error. Font size is NaN\n -D//font_size: "+val)
+		sys.exit()
+	__font_size = val
 def change_prefix(arg):
 	global __prefix
 	__prefix = arg
 def change_postfix(arg):
 	global __postfix
 	__postfix = arg
-arguments = dict([("--font=", change_font), ("--text-color=", change_text), ("--bg-color=", change_bg), ("--prefix=", change_prefix), ("--postfix=", change_postfix)])
+arguments = dict([("--font=", change_font), ("--text-color=", change_text), ("--bg-color=", change_bg), ("--prefix=", change_prefix), ("--postfix=", change_postfix), ("--font-size=", change_font_size)])
 def load():
 	global __client
-	change_font(Config.font)
+	change_font(Config.font[0])
 	change_bg("#"+color_to_hex(Config.color[0]))
 	change_text("#"+color_to_hex(Config.color[1]))
+	change_font_size(Config.font[1])
 	__client = TelegramClient(Config.api_sessionname, Config.api_id, Config.api_hash)
 	__client.start()
 	for i in sys.argv:
