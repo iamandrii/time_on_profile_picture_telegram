@@ -28,5 +28,6 @@ All done!
 3. **--bg-color=_#RRGGBB_** - set color for background in hex format (only **#RRGGBB**)
 4. **--prefix=_text_** - text before time
 5. **--postfix=_text_** - text after time
+6. **--font-size=_number_** - size of text in pixels
 #### by Config.py
 All of listed above and dimensions of photo can be setted throw `Config.py`. But, color must be in decimal format. _P.S. first `color` is background color, second `color` is text color. Also, first `text_fixs` is prefix, second `text_fixs` is postfix._
