@@ -4,4 +4,4 @@ api_sessionname = "autotime"
 font = "defaults/digit"
 color = ((0, 0, 0), (255, 255, 255))
 dimens = (512, 512)
-		
+text_fixs = ("", "")

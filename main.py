@@ -7,16 +7,18 @@ from telethon.tl.functions.photos import UploadProfilePhotoRequest, DeletePhotos
 W, H = Config.dimens
 
 __color__bg, __color__text, __font, __client = ("", "", "", "")
+__prefix, __postfix = Config.text_fixs
 def hash_parameters():
-	global __color__bg, __color__text, __font
-	return (color_to_hex(__color__bg)+color_to_hex(__color__text)+__font.replace("/", "_"));
+	global __color__bg, __color__text, __font, __prefix, __postfix
+	return (color_to_hex(__color__bg)+color_to_hex(__color__text)+__font.replace("/", "_")+str(hash(__prefix+__postfix)));
 def generate_image(mtime):
-	global __color__bg, __color__text, __font, W, H
+	global __color__bg, __color__text, __font, W, H, __prefix, __postfix
 	img = Image.new('RGB', (W,H), color = __color__bg)
 	img_draw = ImageDraw.Draw(img)
 	fnt = ImageFont.truetype("font/"+__font+".ttf", 128);
-	tw, th = img_draw.textsize(mtime, font = fnt)
-	img_draw.text(((W-tw)/2, (H-th)/2), mtime, font=fnt, fill=__color__text);
+	draw_text = __prefix + mtime + __postfix
+	tw, th = img_draw.textsize(draw_text, font = fnt)
+	img_draw.text(((W-tw)/2, (H-th)/2), draw_text, font=fnt, fill=__color__text);
 	img.save("photos/"+mtime.replace(":", "_")+"___"+hash_parameters()+".png", "PNG"); 
 def check_image(Date):
 	flnm = Date.strftime('%H_%M')
@@ -68,7 +70,13 @@ def change_bg(arg):
 		print("Error. Color must be entered with hex-format (#RRGGBB)\n -D//color: #"+color)
 		sys.exit()
 	__color__bg = tuple(int(color[i:i+2], 16) for i in (0, 2, 4))
-arguments = dict([("--font=", change_font), ("--text-color=", change_text), ("--bg-color=", change_bg)])
+def change_prefix(arg):
+	global __prefix
+	__prefix = arg
+def change_postfix(arg):
+	global __postfix
+	__postfix = arg
+arguments = dict([("--font=", change_font), ("--text-color=", change_text), ("--bg-color=", change_bg), ("--prefix=", change_prefix), ("--postfix=", change_postfix)])
 def load():
 	global __client
 	change_font(Config.font)
@@ -79,6 +87,6 @@ def load():
 	for i in sys.argv:
 		for k, v in arguments.items():
 			if i.startswith(k):
-				v(i.split('=')[1]);
+				v(i.split('=', 1)[1]);
 	run()
 load()
