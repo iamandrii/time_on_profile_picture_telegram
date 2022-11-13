@@ -18,7 +18,10 @@ At first you should generate your Telegram Application API ID and API Hash. They
 4. Copy api_id and api_hash into the corresponding fields in `config.py`
 
 ### First run
-After all mandatory things with Telegram API was done, you can finally run the project using command `python3 main.py`
+After all mandatory things with Telegram API was done, you can finally run the project using command 
+```
+python3 main.py
+```
 
 ### Customizing
 All changes should be made in `config.py`. Short explanations of the fields are given using comments in the file
