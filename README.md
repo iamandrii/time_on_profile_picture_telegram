@@ -27,4 +27,4 @@ python3 main.py
 All changes should be made in `config.py`. Short explanations of the fields are given using comments in the file
 
 ## Default Font
-Font, that is used as a default one, is "DS-Digital" by Dusit Supasawat, you can find it here: https://www.dafont.com/ds-digital.font
+Font, that is used as a default one, is ["DS-Digital" by Dusit Supasawat](https://www.dafont.com/ds-digital.font).
