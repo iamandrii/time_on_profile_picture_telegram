@@ -5,7 +5,9 @@ api_id = 0 # Your API ID from Telegram API Setting, as an integer
 
 api_hash = "" # Your API HASH from Telegram API Setting, as a string
 
-api_session_name = "default-session" # Session name, should be as a valid filename in your system
+api_sessions_dir = "./sessions" # Absolute or relative path to the directory, where sessions would be stored, do not write / at the end, if it is possible, do not change this parameter
+
+api_session_name = "default" # Session name, should be as a valid filename in your system
 
 font = ("font/defaults/digit.ttf", 128) # Font settings, tuple consists of:
 # - Path to file with the font, allowed only TrueType fonts, as a string
