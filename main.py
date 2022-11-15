@@ -47,7 +47,7 @@ def run_cycle():
 
 def connect_and_run():
 	global telegram_client
-	telegram_client = TelegramClient(config.api_sessions_dir+"/"config.api_session_name, config.api_id, config.api_hash)
+	telegram_client = TelegramClient(config.api_sessions_dir+"/"+config.api_session_name, config.api_id, config.api_hash)
 	telegram_client.start()
 	run_cycle()
 
