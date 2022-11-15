@@ -10,6 +10,10 @@ def ensure_cache_directory():
 	if not os.path.exists(config.cache_directory):
 		os.mkdir(config.cache_directory)
 
+def ensure_sessions_directory():
+	if not os.path.exists(config.api_sessions_dir):
+		os.mkdir(config.api_sessions_dir)
+
 def generate_image(actual_datetime):
 	img = Image.new('RGB', config.dimensions, color = config.color[0])
 	img_draw = ImageDraw.Draw(img)
@@ -47,6 +51,7 @@ def run_cycle():
 
 def connect_and_run():
 	global telegram_client
+	ensure_sessions_directory()
 	telegram_client = TelegramClient(config.api_sessions_dir+"/"+config.api_session_name, config.api_id, config.api_hash)
 	telegram_client.start()
 	run_cycle()
