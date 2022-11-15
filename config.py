@@ -13,7 +13,7 @@ font = ["./font/defaults/digit.ttf", 128] # Font settings, tuple consists of:
 # - Path to file with the font, allowed only TrueType fonts, as a string
 # - Font size, in points (pt), as an integer
 
-color = [[0, 0, 0], [255, 255, 255]] # Color settings, tuple consists of:
+color = [(0, 0, 0), (255, 255, 255)] # Color settings, tuple consists of:
 # - Background color in numerical RGB format (each number is 0..255)
 # - Text color in numerical RGB format (each number is 0..255)
 
